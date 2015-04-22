@@ -1,0 +1,31 @@
+<h1>Categories</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3 col-md-3">
+      <div class="panel-group" id="accordion">
+        <% @categories.each_with_index do |category, index| %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index%>"><span class="glyphicon glyphicon-list"></span><%= category.name %></a>
+            </h4>
+          </div>
+          <div id="collapse<%= index%>" class="panel-collapse collapse">
+            <ul class="list-group">
+              <li class="list-group-item"><span class="glyphicon glyphicon-file text-primary"></span><a href="#">Item 1</a></li>
+              <li class="list-group-item"><span class="glyphicon glyphicon-file text-primary"></span><a href="#">Item 2</a></li>
+              <li class="list-group-item"><span class="glyphicon glyphicon-file text-primary"></span><a href="#">Item 3</a></li>
+              <li class="list-group-item"><span class="glyphicon glyphicon-file text-primary"></span><a href="#">Item 4</a></li>
+            </ul>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<div class="container">
+
+<br>
+
+<%= link_to 'New Category', new_category_path, :class => "btn btn-primary btn-lg" %>
+</div>
