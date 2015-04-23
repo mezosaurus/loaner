@@ -4,7 +4,7 @@ class BorrowersController < ApplicationController
   respond_to :html
 
   def index
-    @borrowers = Borrower.all
+    @borrowers = current_user.borrowers
     respond_with(@borrowers)
   end
 
@@ -42,6 +42,6 @@ class BorrowersController < ApplicationController
     end
 
     def borrower_params
-      params.require(:borrower).permit(:name, :phone, :nickname, :email)
+        params.require(:borrower).permit(:name, :phone, :nickname, :email, :user_id)
     end
 end

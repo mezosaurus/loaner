@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+    get '/items' => redirect('/categories')
+    get '/borrowers' => redirect('/categories')
   resources :items
 
   resources :categories

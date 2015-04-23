@@ -4,8 +4,7 @@ class CategoriesController < ApplicationController
   respond_to :html
 
   def index
-    @categories = Category.all
-    @user = current_user
+    @categories = current_user.categories
     respond_with(@categories)
   end
 
@@ -43,6 +42,6 @@ class CategoriesController < ApplicationController
     end
 
     def category_params
-      params.require(:category).permit(:name)
+        params.require(:category).permit(:name, :user_id)
     end
 end

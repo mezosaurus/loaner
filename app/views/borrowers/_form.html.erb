@@ -28,6 +28,7 @@
     <%= f.text_field :email %>
   </div>
   <div class="actions">
+    <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit %>
   </div>
 <% end %>
