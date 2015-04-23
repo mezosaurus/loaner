@@ -2,10 +2,14 @@ Rails.application.routes.draw do
   resources :items
 
   resources :categories
+  
+  resources :borrowers
 
   devise_for :users
 
   root to: 'home#home'
+  
+  get 'items/:id/loan', to: 'items#loan', as: 'loan'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

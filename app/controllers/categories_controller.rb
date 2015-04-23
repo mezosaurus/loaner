@@ -5,6 +5,7 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @user = current_user
     respond_with(@categories)
   end
 

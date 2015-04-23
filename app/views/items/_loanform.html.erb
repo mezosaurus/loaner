@@ -15,22 +15,21 @@
   <div class="row">
     <div class="form-group col-md-4">
       <%= f.label :name %><br>
-      <%= f.text_field :name, class: "form-control" %>
+      <%= @item.name %>
     </div>
   </div>
   <div class="row">
     <div class="form-group col-md-4">
       <%= f.label :description %><br>
-      <%= f.text_field :description, class: "form-control" %>
+      <%= @item.description %>
     </div>
   </div>
   <div class="row">
     <div class="form-group col-md-4">
-        <%= f.label :category_id %><br>
-        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {:class => "form-control"}) %>
+        <%= f.label :borrower_id %><br>
+        <%= f.collection_select(:borrower_id, Borrower.all, :id, :name, {}, {:class => "form-control"}) %>
     </div>
   </div>
-  <%= f.hidden_field :user_id, :value => @user.id %>
 
   <%= f.submit "Submit", class: "btn btn-default" %>
 <% end %>

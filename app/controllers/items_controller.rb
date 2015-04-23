@@ -12,9 +12,18 @@ class ItemsController < ApplicationController
         respond_with(@item)
     end
     
+    def loan
+        @item = Item.find(params[:id])
+    end
+    
+    def returnloan
+        @item.borrower = nil
+    end
+    
     def new
         @item = Item.new
         @category = @item.build_category
+        @user = current_user
         respond_with(@item)
     end
     
@@ -43,7 +52,7 @@ class ItemsController < ApplicationController
     end
     
     def item_params
-        params.require(:item).permit(:name, :description, :category_id)
+        params.require(:item).permit(:name, :description, :category_id, :borrower_id, :user_id)
     end
 end
 
