@@ -1,8 +1,12 @@
+<script>
+$
+</script>
+
 <div class="container">
   <h1>Loaned Items</h1>
   <br>
   <div class="row">
-    <div class="col-sm-6 col-md-6">
+    <div class="col-sm-3 col-md-3">
       <div class="panel-group" id="accordion">
         <% @categories.each_with_index do |category, index| %>
         <div class="panel panel-default">
@@ -35,10 +39,19 @@
         <% end %>
       </div>
     </div>
+    <div class="col-sm-6 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Item Detail</h3>
+        </div>
+        <div class="panel-body">
+          <p>Item detail goes here after it is clicked from the menu on the left</p>
+        </div>
+      </div>
+    </div>
   </div>
-<div class="container">
 
-<br>
+  <br>
 
   <%= link_to 'New Category', new_category_path, :class => "btn btn-primary btn-lg" %>
   <%= link_to 'New Item', new_item_path, :class => "btn btn-primary btn-lg" %>
