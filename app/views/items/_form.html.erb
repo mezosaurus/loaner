@@ -24,6 +24,12 @@
       <%= f.text_field :description, class: "form-control" %>
     </div>
   </div>
+  <div class="row">
+    <div class="form-group col-md-4">
+        <%= f.label :category_id %><br>
+        <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {:class => "form-control"}) %>
+    </div>
+  </div>
 
   <%= f.submit "Submit", class: "btn btn-default" %>
 <% end %>
