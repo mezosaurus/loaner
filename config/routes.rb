@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   root to: 'home#home'
   
   get 'items/:id/loan', to: 'items#loan', as: 'loan'
+  post 'items/:id', to: 'items#returnloan', as: 'returnloan'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

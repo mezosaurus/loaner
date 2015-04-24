@@ -1,12 +1,36 @@
 <script>
-$
+function onItemClick(id) {
+  $.ajax({
+    type: 'GET',
+    url: '/items/'+id,
+    success: function(data) {
+      console.log(data);
+      var name = data.name;
+      var description = data.description;
+      var borrower, email, borrowerName, nickname, phone;
+      if (data.borrower_id) {
+        borrower = data.borrower;
+        email = borrower.email;
+        borrowerName = borrower.name;
+        nickname = borrower.nickname;
+        phone = borrower.phone;
+      }
+      //var createdDate = new Date(borrower.created_at, "M/d/y");
+      //console.log(createdDate);
+      //$('#item-detail-parent').css('display: block');
+      $('#item-detail-header').html(name);
+      $('#item-detail-body').html(description+email+borrowerName+nickname+phone);
+      $('#item-detail-parent').show();
+    }
+  });
+}
 </script>
 
 <div class="container">
-  <h1>Loaned Items</h1>
+  <h1>Items</h1>
   <br>
   <div class="row">
-    <div class="col-sm-3 col-md-3">
+    <div class="col-sm-6 col-md-6">
       <div class="panel-group" id="accordion">
         <% @categories.each_with_index do |category, index| %>
         <div class="panel panel-default">
@@ -20,17 +44,28 @@ $
               <li class="list-group-item">
               <% category.items.each do |item| %>
                 <ul style="width:100%; padding:0; margin:0;" class="list-inline">
-                  <li style="display:inline-block;">
-                    <span class="glyphicon glyphicon-file text-primary"></span>
-                    <a href="#"><%= item.name %></a>
+                  <li>
+                    <!--<%= link_to item.name, item_path(item.id), remote: true %>-->
+                    <button class="btn btn-link" onclick="onItemClick(<%= item.id%>)">
+                      <span class="glyphicon glyphicon-file text-primary"></span>
+                      <%= item.name %>
+                    </button>
                   </li>
-                  <li style="display:inline-block;">
+                  <li>
                     <span class="glyphicon glyphicon-edit text-primary"></span>
-                    <a href="#">Edit</a>
+                    <%= link_to 'Edit', edit_item_path(item.id), :class => "text-primary" %>
                   </li>
-                  <li style="display:inline-block;">
-                    <span class="glyphicon glyphicon-remove text-primary"></span>
-                    <a href="#">Delete</a>
+                  <li>
+                    <span class="glyphicon glyphicons-handshake text-primary"></span>
+                    <% if (item.borrower == nil)%>
+                      <%= link_to 'Loan', loan_path(item.id), :class => "text-primary" %>
+                    <% else  %>
+                      <%= link_to 'Return', item, method: :returnloan, :class => "text-primary" %>
+                    <% end %>
+                  </li>
+                  <li>
+                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                    <%= link_to 'Delete', item, method: :delete, data: { confirm: 'Are you sure?' }, :class => "text-danger" %>
                   </li>
                 </ul>
                 <% end %>
@@ -41,16 +76,7 @@ $
         <% end %>
       </div>
     </div>
-    <div class="col-sm-6 col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Item Detail</h3>
-        </div>
-        <div class="panel-body">
-          <p>Item detail goes here after it is clicked from the menu on the left</p>
-        </div>
-      </div>
-    </div>
+    <%= render 'itemdetail' %>
   </div>
 
   <br>

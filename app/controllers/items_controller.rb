@@ -9,7 +9,13 @@ class ItemsController < ApplicationController
     end
     
     def show
-        respond_with(@item)
+        @item = Item.find(params[:id])
+        @borrower = @item.borrower
+        response = { :item => @item, :borrower => @borrower }
+        respond_to do |format|
+            format.json { render :json => @item.to_json(:include => [:borrower]) }
+            format.html { @item }
+        end
     end
     
     def loan
@@ -17,7 +23,10 @@ class ItemsController < ApplicationController
     end
     
     def returnloan
-        @item.borrower = nil
+        @item = Item.find(params[:id])
+        @borrower = @item.borrower
+        @borrower.items.delete(@item)
+        redirect_to(categories_path)
     end
     
     def new
@@ -38,7 +47,7 @@ class ItemsController < ApplicationController
     
     def update
         @item.update(item_params)
-        respond_with(@item)
+        redirect_to(categories_path)
     end
     
     def destroy
