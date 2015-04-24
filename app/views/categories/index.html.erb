@@ -17,7 +17,7 @@ function onItemClick(id) {
         createdDate = new Date(borrower.created_at);
 
         $('#item-borrower-header').html('Borrower');
-        $('#item-borrower').html(borrowerName);
+        $('#item-borrower').html('Name: ' + borrowerName);
 
         $('#item-nickname').html('Nickname: ' + nickname);
         $('#item-email').html('Email: ' + email);
