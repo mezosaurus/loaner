@@ -1,24 +1,26 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @borrower.name %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @borrower.name %>
+  </p>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @borrower.phone %>
-</p>
+  <p>
+    <strong>Phone:</strong>
+    <%= @borrower.phone %>
+  </p>
 
-<p>
-  <strong>Nickname:</strong>
-  <%= @borrower.nickname %>
-</p>
+  <p>
+    <strong>Nickname:</strong>
+    <%= @borrower.nickname %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @borrower.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @borrower.email %>
+  </p>
 
-<%= link_to 'Edit', edit_borrower_path(@borrower) %> |
-<%= link_to 'Back', borrowers_path %>
+  <%= link_to 'Edit', edit_borrower_path(@borrower), :class => "btn btn-primary" %>
+  <%= link_to 'View Items', borrowers_path, :class=> "btn btn-primary" %>
+</div>

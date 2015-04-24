@@ -7,19 +7,30 @@ function onItemClick(id) {
       console.log(data);
       var name = data.name;
       var description = data.description;
-      var borrower, email, borrowerName, nickname, phone;
+      var borrower, email, borrowerName, nickname, phone, createdDate;
       if (data.borrower_id) {
         borrower = data.borrower;
         email = borrower.email;
         borrowerName = borrower.name;
         nickname = borrower.nickname;
         phone = borrower.phone;
+        createdDate = new Date(borrower.created_at);
+
+        $('#item-borrower-header').html('Borrower');
+        $('#item-borrower').html(borrowerName);
+
+        $('#item-nickname').html('Nickname: ' + nickname);
+        $('#item-email').html('Email: ' + email);
+        $('#item-phone').html('Phone: ' + phone);
+
+        $('#item-date-header').html('Loaned Out');
+        $('#item-date').html(createdDate.getMonth()+1 + "/" + createdDate.getDate() + "/" + createdDate.getFullYear());
       }
-      //var createdDate = new Date(borrower.created_at, "M/d/y");
       //console.log(createdDate);
       //$('#item-detail-parent').css('display: block');
       $('#item-detail-header').html(name);
-      $('#item-detail-body').html(description+email+borrowerName+nickname+phone);
+      $('#item-description').html(description);
+      //$('#item-detail-body').html(description+email+borrowerName+nickname+phone);
       $('#item-detail-parent').show();
     }
   });
@@ -39,27 +50,28 @@ function onItemClick(id) {
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index%>"><span class="glyphicon glyphicon-list"></span><%= category.name %></a>
             </h4>
           </div>
-          <div id="collapse<%= index%>" class="panel-collapse collapse">
+          <div id="collapse<%= index%>" class="panel-collapse collapse in">
             <ul class="list-group">
               <li class="list-group-item">
               <% category.items.each do |item| %>
                 <ul style="width:100%; padding:0; margin:0;" class="list-inline">
                   <li>
-                    <!--<%= link_to item.name, item_path(item.id), remote: true %>-->
                     <button class="btn btn-link" onclick="onItemClick(<%= item.id%>)">
                       <span class="glyphicon glyphicon-file text-primary"></span>
                       <%= item.name %>
                     </button>
                   </li>
                   <li>
-                    <span class="glyphicon glyphicon-edit text-primary"></span>
+                    <span class="glyphicon glyphicon-wrench text-primary"></span>
                     <%= link_to 'Edit', edit_item_path(item.id), :class => "text-primary" %>
                   </li>
                   <li>
-                    <span class="glyphicon glyphicons-handshake text-primary"></span>
+                    
                     <% if (item.borrower == nil)%>
+                      <span class="glyphicon glyphicon-minus text-primary"></span>
                       <%= link_to 'Loan', loan_path(item.id), :class => "text-primary" %>
                     <% else  %>
+                      <span class="glyphicon glyphicon-plus text-primary"></span>
                       <%= link_to 'Return', item, method: :returnloan, :class => "text-primary" %>
                     <% end %>
                   </li>
@@ -78,10 +90,4 @@ function onItemClick(id) {
     </div>
     <%= render 'itemdetail' %>
   </div>
-
-  <br>
-
-  <%= link_to 'New Category', new_category_path, :class => "btn btn-primary btn-lg" %>
-  <%= link_to 'New Item', new_item_path, :class => "btn btn-primary btn-lg" %>
-  <%= link_to 'New Borrower', new_borrower_path, :class => "btn btn-primary btn-lg" %>
 </div>

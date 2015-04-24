@@ -1,5 +1,5 @@
 
-<%= form_for @item, :html => {:class => "form-vertical center"} do |f| %>
+<%= form_for @item do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -27,7 +27,12 @@
   <div class="row">
     <div class="form-group col-md-4">
         <%= f.label :category_id %><br>
-        <%= f.collection_select(:category_id, current_user.categories, :id, :name, {}, {:class => "form-control"}) %>
+        <div class="input-group">
+          <%= f.collection_select(:category_id, current_user.categories, :id, :name, {}, {:class => "form-control"}) %>
+          <span class="input-group-btn">
+            <%= link_to 'New Category', new_category_path, :class => "btn btn-default" %>
+          </span>
+        </div>
     </div>
   </div>
   <%= f.hidden_field :user_id, :value => @user.id %>
